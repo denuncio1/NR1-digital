@@ -29,6 +29,11 @@ import HazardRiskRegistration from "@/pages/OccupationalRiskInventory/HazardRisk
 import RiskAgents from "@/pages/OccupationalRiskInventory/RiskAgents.tsx";
 import RiskClassification from "@/pages/OccupationalRiskInventory/RiskClassification.tsx";
 
+// Import new sub-pages for Integrated Action Plan
+import PreventionMeasures from "@/pages/IntegratedActionPlan/PreventionMeasures.tsx";
+import AutomaticPrioritization from "@/pages/IntegratedActionPlan/AutomaticPrioritization.tsx";
+import ActionMonitoring from "@/pages/IntegratedActionPlan/ActionMonitoring.tsx";
+
 
 const queryClient = new QueryClient();
 
@@ -47,6 +52,9 @@ const App = () => (
             <Route path="/occupational-risk-inventory/risk-agents" element={<RiskAgents />} />
             <Route path="/occupational-risk-inventory/risk-classification" element={<RiskClassification />} />
             <Route path="/integrated-action-plan" element={<IntegratedActionPlan />} />
+            <Route path="/integrated-action-plan/prevention-measures" element={<PreventionMeasures />} />
+            <Route path="/integrated-action-plan/automatic-prioritization" element={<AutomaticPrioritization />} />
+            <Route path="/integrated-action-plan/action-monitoring" element={<ActionMonitoring />} />
             <Route path="/document-management" element={<DocumentManagement />} />
             <Route path="/psychosocial-assessment" element={<PsychosocialAssessment />} />
             <Route path="/risk-classification-simulator" element={<RiskClassificationSimulator />} />

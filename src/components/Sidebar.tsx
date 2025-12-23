@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import {
   ClipboardList, ListChecks, FolderOpen, HeartPulse, Calculator, GraduationCap,
   BellRing, LayoutDashboard, FileText, Link, Sparkles, Scale, Target, Users, History,
-  ListPlus, FlaskConical, ShieldAlert, ChevronDown
+  ListPlus, FlaskConical, ShieldAlert, ChevronDown, ClipboardType, TrendingUp, CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -41,6 +41,23 @@ const navItems = [
     title: "Plano de Ação Integrado",
     href: "/integrated-action-plan",
     icon: ListChecks,
+    children: [
+      {
+        title: "Medidas de Prevenção",
+        href: "/integrated-action-plan/prevention-measures",
+        icon: ClipboardType,
+      },
+      {
+        title: "Priorização Automática",
+        href: "/integrated-action-plan/automatic-prioritization",
+        icon: TrendingUp,
+      },
+      {
+        title: "Acompanhamento de Ações",
+        href: "/integrated-action-plan/action-monitoring",
+        icon: CheckCircle,
+      },
+    ],
   },
   {
     title: "Gestão de Documentos Digitais",
