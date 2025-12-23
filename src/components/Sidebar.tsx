@@ -6,7 +6,7 @@ import {
   ClipboardList, ListChecks, FolderOpen, HeartPulse, Calculator, GraduationCap,
   BellRing, LayoutDashboard, FileText, Link, Sparkles, Scale, Target, Users, History,
   ListPlus, FlaskConical, ShieldAlert, ChevronDown, ClipboardType, TrendingUp, CheckCircle,
-  FileSignature, ScanText, Share2
+  FileSignature, ScanText, Share2, SearchCheck, FileQuestion, BarChart3
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -86,6 +86,23 @@ const navItems = [
     title: "Módulo de Avaliação Psicossocial",
     href: "/psychosocial-assessment",
     icon: HeartPulse,
+    children: [
+      {
+        title: "Coleta de Percepção (NR-1.5.3.3)",
+        href: "/psychosocial-assessment/perception-tools",
+        icon: SearchCheck,
+      },
+      {
+        title: "Questionários e Análise",
+        href: "/psychosocial-assessment/questionnaires-analysis",
+        icon: FileQuestion,
+      },
+      {
+        title: "Relatórios Integrados",
+        href: "/psychosocial-assessment/integrated-reports",
+        icon: BarChart3,
+      },
+    ],
   },
   {
     title: "Simulador de Classificação de Riscos",
