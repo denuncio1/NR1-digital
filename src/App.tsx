@@ -48,6 +48,10 @@ import IntegratedReports from "@/pages/PsychosocialAssessment/IntegratedReports.
 import InteractiveRiskCalculator from "@/pages/RiskClassificationSimulator/InteractiveRiskCalculator.tsx";
 import AutomaticMeasuresSuggestion from "@/pages/RiskClassificationSimulator/AutomaticMeasuresSuggestion.tsx";
 
+// Import new sub-pages for Training and Awareness
+import TrainingTracks from "@/pages/TrainingAwareness/TrainingTracks";
+import ActionRegistration from "@/pages/TrainingAwareness/ActionRegistration";
+
 
 const queryClient = new QueryClient();
 
@@ -81,6 +85,8 @@ const App = () => (
             <Route path="/risk-classification-simulator/interactive-risk-calculator" element={<InteractiveRiskCalculator />} />
             <Route path="/risk-classification-simulator/automatic-measures-suggestion" element={<AutomaticMeasuresSuggestion />} />
             <Route path="/training-awareness" element={<TrainingAwareness />} />
+            <Route path="/training-awareness/training-tracks" element={<TrainingTracks />} />
+            <Route path="/training-awareness/action-registration" element={<ActionRegistration />} />
             <Route path="/emergency-management" element={<EmergencyManagement />} />
             <Route path="/report-automation" element={<ReportAutomation />} />
             <Route path="/pgr-integration" element={<PGRIntegration />} />

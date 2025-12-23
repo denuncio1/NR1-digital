@@ -7,7 +7,7 @@ import {
   BellRing, LayoutDashboard, FileText, Link, Sparkles, Scale, Target, Users, History,
   ListPlus, FlaskConical, ShieldAlert, ChevronDown, ClipboardType, TrendingUp, CheckCircle,
   FileSignature, ScanText, Share2, SearchCheck, FileQuestion, BarChart3,
-  Gauge, Lightbulb
+  Gauge, Lightbulb, BookOpenText, CalendarCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -126,6 +126,18 @@ const navItems = [
     title: "Capacitação e Sensibilização",
     href: "/training-awareness",
     icon: GraduationCap,
+    children: [
+      {
+        title: "Trilhas de Treinamento",
+        href: "/training-awareness/training-tracks",
+        icon: BookOpenText,
+      },
+      {
+        title: "Registro de Ações",
+        href: "/training-awareness/action-registration",
+        icon: CalendarCheck,
+      },
+    ],
   },
   {
     title: "Gestão de Emergências",
