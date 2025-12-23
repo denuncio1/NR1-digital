@@ -3,8 +3,27 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainLayout from "./components/MainLayout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+
+// Import all new pages
+import Dashboard from "./pages/Dashboard";
+import OccupationalRiskInventory from "./pages/OccupationalRiskInventory";
+import IntegratedActionPlan from "./pages/IntegratedActionPlan";
+import DocumentManagement from "./pages/DocumentManagement";
+import PsychosocialAssessment from "./pages/PsychosocialAssessment";
+import RiskClassificationSimulator from "./pages/RiskClassificationSimulator";
+import TrainingAwareness from "./pages/TrainingAwareness";
+import EmergencyManagement from "./pages/EmergencyManagement";
+import ReportAutomation from "./pages/ReportAutomation";
+import PGRIntegration from "./pages/PGRIntegration";
+import ExtraFeatures from "./pages/ExtraFeatures";
+import LegalCompliance from "./pages/LegalCompliance";
+import PsychosocialFocus from "./pages/PsychosocialFocus";
+import CIPAIntegration from "./pages/CIPAIntegration";
+import UpdateHistory from "./pages/UpdateHistory";
+
 
 const queryClient = new QueryClient();
 
@@ -15,9 +34,26 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/occupational-risk-inventory" element={<OccupationalRiskInventory />} />
+            <Route path="/integrated-action-plan" element={<IntegratedActionPlan />} />
+            <Route path="/document-management" element={<DocumentManagement />} />
+            <Route path="/psychosocial-assessment" element={<PsychosocialAssessment />} />
+            <Route path="/risk-classification-simulator" element={<RiskClassificationSimulator />} />
+            <Route path="/training-awareness" element={<TrainingAwareness />} />
+            <Route path="/emergency-management" element={<EmergencyManagement />} />
+            <Route path="/report-automation" element={<ReportAutomation />} />
+            <Route path="/pgr-integration" element={<PGRIntegration />} />
+            <Route path="/extra-features" element={<ExtraFeatures />} />
+            <Route path="/legal-compliance" element={<LegalCompliance />} />
+            <Route path="/psychosocial-focus" element={<PsychosocialFocus />} />
+            <Route path="/cipa-integration" element={<CIPAIntegration />} />
+            <Route path="/update-history" element={<UpdateHistory />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
