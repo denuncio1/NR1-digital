@@ -44,6 +44,10 @@ import PerceptionTools from "@/pages/PsychosocialAssessment/PerceptionTools.tsx"
 import QuestionnairesAnalysis from "@/pages/PsychosocialAssessment/QuestionnairesAnalysis.tsx";
 import IntegratedReports from "@/pages/PsychosocialAssessment/IntegratedReports.tsx";
 
+// Import new sub-pages for Risk Classification Simulator
+import InteractiveRiskCalculator from "@/pages/RiskClassificationSimulator/InteractiveRiskCalculator.tsx";
+import AutomaticMeasuresSuggestion from "@/pages/RiskClassificationSimulator/AutomaticMeasuresSuggestion.tsx";
+
 
 const queryClient = new QueryClient();
 
@@ -74,6 +78,8 @@ const App = () => (
             <Route path="/psychosocial-assessment/questionnaires-analysis" element={<QuestionnairesAnalysis />} />
             <Route path="/psychosocial-assessment/integrated-reports" element={<IntegratedReports />} />
             <Route path="/risk-classification-simulator" element={<RiskClassificationSimulator />} />
+            <Route path="/risk-classification-simulator/interactive-risk-calculator" element={<InteractiveRiskCalculator />} />
+            <Route path="/risk-classification-simulator/automatic-measures-suggestion" element={<AutomaticMeasuresSuggestion />} />
             <Route path="/training-awareness" element={<TrainingAwareness />} />
             <Route path="/emergency-management" element={<EmergencyManagement />} />
             <Route path="/report-automation" element={<ReportAutomation />} />

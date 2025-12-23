@@ -6,7 +6,8 @@ import {
   ClipboardList, ListChecks, FolderOpen, HeartPulse, Calculator, GraduationCap,
   BellRing, LayoutDashboard, FileText, Link, Sparkles, Scale, Target, Users, History,
   ListPlus, FlaskConical, ShieldAlert, ChevronDown, ClipboardType, TrendingUp, CheckCircle,
-  FileSignature, ScanText, Share2, SearchCheck, FileQuestion, BarChart3
+  FileSignature, ScanText, Share2, SearchCheck, FileQuestion, BarChart3,
+  Gauge, Lightbulb
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -108,6 +109,18 @@ const navItems = [
     title: "Simulador de Classificação de Riscos",
     href: "/risk-classification-simulator",
     icon: Calculator,
+    children: [
+      {
+        title: "Calculadora de Nível de Risco",
+        href: "/risk-classification-simulator/interactive-risk-calculator",
+        icon: Gauge,
+      },
+      {
+        title: "Sugestão de Medidas Automática",
+        href: "/risk-classification-simulator/automatic-measures-suggestion",
+        icon: Lightbulb,
+      },
+    ],
   },
   {
     title: "Capacitação e Sensibilização",
