@@ -73,7 +73,8 @@ export function Login() {
       });
     } finally {
       setLoading(false);
-    export function Login() {
+    import { ReactElement } from "react";
+    export function Login(): ReactElement {
       return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-background">
           <BackToMenuButton />
