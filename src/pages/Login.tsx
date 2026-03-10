@@ -39,7 +39,7 @@ const loginSchema = z.object({
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
-export function Login() {
+function Login() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -56,37 +56,21 @@ export function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onLoginSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    setLoading(true);
-    try {
-      await signIn(data.email, data.password);
-      toast({
-        title: "Login bem-sucedido!",
-        description: "Redirecionando para o painel...",
-      });
-      navigate("/");
-    } catch (error: any) {
-      toast({
-        title: "Erro no Login",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    import { ReactElement } from "react";
-    export function Login(): ReactElement {
-      return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-background">
-          <BackToMenuButton />
-          <Card className="w-full max-w-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl">Acesso Restrito (RH)</CardTitle>
-              <CardDescription>
-                O login do RH foi desabilitado temporariamente.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      );
-    }
-      toast({
+
+  // Retorno da tela de login desabilitada
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background">
+      <BackToMenuButton />
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-2xl">Acesso Restrito (RH)</CardTitle>
+          <CardDescription>
+            O login do RH foi desabilitado temporariamente.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </div>
+  );
+}
+
+export default Login;

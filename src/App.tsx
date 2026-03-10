@@ -27,7 +27,7 @@ import { useAuth } from "./hooks/useAuth";
 import MainLayout from "./components/MainLayout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { Login } from "./pages/Login";
+import Login from "./pages/Login";
 import ResetPassword from "@/pages/ResetPassword";
 import LegislacaoTextoIntegral from "./pages/LegislacaoTextoIntegral";
 import OccupationalAccidentQuickInput from "./pages/OccupationalAccidentQuickInput";
