@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import {
   ClipboardList, ListChecks, FolderOpen, HeartPulse, Calculator, GraduationCap,
@@ -88,6 +88,16 @@ const navItems = [
     title: "Dashboard Gerencial",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    title: "Gestão de Funcionários",
+    href: "/sst-lists/funcionario",
+    icon: Users,
+  },
+  {
+    title: "Cadastrar Funcionário",
+    href: "/funcionario-form",
+    icon: ListPlus,
   },
   {
     title: "Dashboard ESG – Social",
@@ -301,7 +311,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <ScrollArea className="h-full py-4">
+    <div className="h-full py-4 overflow-auto">
       <div className="px-3 py-2">
         <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight text-sidebar-foreground">
           Menu Principal
@@ -311,67 +321,61 @@ export const Sidebar = () => {
             const itemKey = item.href || item.title || idx;
             return (
               <React.Fragment key={itemKey}>
-              <div className="flex items-center justify-between">
-                <NavLink
-                  to={item.href}
-                  className={({ isActive }) =>
-                    cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex-grow",
-                      isActive
-                        ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                        : "text-sidebar-foreground"
-                    )
-                  }
-                  onClick={(e) => {
-                    if (item.children) {
-                      e.preventDefault();
-                      toggleOpen(item.href);
+                <div className="flex items-center justify-between">
+                  <NavLink
+                    to={item.href}
+                    className={({ isActive }) =>
+                      cn(
+                        "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                        isActive
+                          ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                          : "text-sidebar-foreground"
+                      )
                     }
-                  }}
-                >
-                  {item.icon && <item.icon className="h-4 w-4" />}
-                  {item.title}
-                </NavLink>
-                {item.children && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8"
-                    onClick={() => toggleOpen(item.href)}
                   >
-                    <ChevronDown className={cn("h-4 w-4 transition-transform", openItems[item.href] && "rotate-180")}/>
-                  </Button>
-                )}
-              </div>
-              {openItems[item.href] && item.children && (
-                <div className="ml-6 space-y-1">
-                  {item.children.map((child, cidx) => {
-                    const childKey = child.href || child.title || `${itemKey}-child-${cidx}`;
-                    return (
-                      <NavLink
-                        key={childKey}
-                        to={child.href}
-                      className={({ isActive }) =>
-                        cn(
-                          "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                          isActive
-                            ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                            : "text-sidebar-foreground"
-                        )
-                      }
+                    {item.icon && <item.icon className="h-4 w-4" />}
+                    {item.title}
+                  </NavLink>
+                  {item.children && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => toggleOpen(item.href)}
                     >
-                        {child.icon && <child.icon className="h-4 w-4" />}
-                        {child.title}
-                      </NavLink>
-                    );
-                  })}
+                      <ChevronDown className={cn("h-4 w-4 transition-transform", openItems[item.href] && "rotate-180")}/>
+                    </Button>
+                  )}
                 </div>
-              )}
-            </React.Fragment>
+                {openItems[item.href] && item.children && (
+                  <div className="ml-6 space-y-1">
+                    {item.children.map((child, cidx) => {
+                      const childKey = child.href || child.title || `${itemKey}-child-${cidx}`;
+                      return (
+                        <NavLink
+                          key={childKey}
+                          to={child.href}
+                          className={({ isActive }) =>
+                            cn(
+                              "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                              isActive
+                                ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                                : "text-sidebar-foreground"
+                            )
+                          }
+                        >
+                          {child.icon && <child.icon className="h-4 w-4" />}
+                          {child.title}
+                        </NavLink>
+                      );
+                    })}
+                  </div>
+                )}
+              </React.Fragment>
             );
           })}
         </div>
       </div>
-    </ScrollArea>
+    </div>
   );
 };

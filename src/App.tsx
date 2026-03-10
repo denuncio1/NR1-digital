@@ -1,3 +1,6 @@
+import GheList from "./pages/GheList";
+// import GheForm from "./pages/GheForm"; // Removido para evitar conflito de casing
+import FuncionarioForm from "./pages/FuncionarioForm";
 import ESGDashboard from "./pages/ESGDashboard";
 import ComplianceAssistantPage from "./pages/ComplianceAssistant";
   <Route path="compliance-assistant" element={<ComplianceAssistantPage />} />
@@ -28,8 +31,14 @@ import { Login } from "./pages/Login";
 import ResetPassword from "@/pages/ResetPassword";
 import LegislacaoTextoIntegral from "./pages/LegislacaoTextoIntegral";
 import OccupationalAccidentQuickInput from "./pages/OccupationalAccidentQuickInput";
+import CATList from "./pages/CATList";
+import { GHEList, RiscoList } from "./pages/SSTLists";
+import GHEForm from "./pages/GHEForm";
+import RiscoForm from "./pages/RiscoForm";
+import CATForm from "./pages/CATForm";
 
 // Import all pages
+import FuncionarioList from "./pages/FuncionarioList";
 import Dashboard from "./pages/Dashboard";
 import OccupationalRiskInventory from "./pages/OccupationalRiskInventory";
 import IntegratedActionPlan from "./pages/IntegratedActionPlan";
@@ -86,6 +95,7 @@ function App() {
 }
 
 function AppRoutes() {
+  // ...
   const { session, loading } = useAuth();
 
   if (loading) {
@@ -99,8 +109,13 @@ function AppRoutes() {
 
   return (
     <Routes>
+      {/* Rotas de GHE */}
+      <Route path="/ghe-list" element={<GheList />} />
+      <Route path="/ghe-form" element={<GHEForm />} />
       <Route path="/login" element={!session ? <Login /> : <Navigate to="/" replace />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/sst-lists/funcionario" element={<FuncionarioList />} />
+      <Route path="/funcionario-form" element={<FuncionarioForm />} />
 
       <Route path="/cipa-integration/harassment-prevention" element={<HarassmentPrevention />} />
       <Route path="/LegislacaoTextoIntegral" element={<LegislacaoTextoIntegral />} />
@@ -165,6 +180,12 @@ function AppRoutes() {
         <Route path="third-party/ThirdPartyExchange" element={<ThirdPartyExchange />} />
         <Route path="third-party/ThirdPartyConsolidation" element={<ThirdPartyConsolidation />} />
         <Route path="/occupational-accident-quick-input" element={<OccupationalAccidentQuickInput />} />
+        <Route path="/cat-list" element={<CATList />} />
+        <Route path="ghe-list" element={<GHEList />} />
+        <Route path="risco-list" element={<RiscoList />} />
+        <Route path="ghe-form" element={<GHEForm />} />
+        <Route path="risco-form" element={<RiscoForm />} />
+        <Route path="cat-form" element={<CATForm />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

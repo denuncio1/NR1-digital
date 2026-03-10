@@ -190,9 +190,7 @@ export function HarassmentPrevention() {
             Sair da Visão RH
           </Button>
         ) : (
-          <Button onClick={handleLogin}>
-            Acessar como RH
-          </Button>
+          <span className="text-muted-foreground">Acesso RH desabilitado</span>
         )}
       </div>
 
