@@ -14,6 +14,7 @@ const ESGDashboard: React.FC = () => {
   const [turnover, setTurnover] = useState([]);
   const [nearMisses, setNearMisses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [supabaseError, setSupabaseError] = useState<string | null>(null);
 
   // Filtros
   const [period, setPeriod] = useState('all'); // 'all', 'last30', 'last90', etc
@@ -22,50 +23,66 @@ const ESGDashboard: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      // Filtros de período
-      let fromDate = null;
-      if (period === 'last30') {
-        fromDate = new Date();
-        fromDate.setDate(fromDate.getDate() - 30);
-      } else if (period === 'last90') {
-        fromDate = new Date();
-        fromDate.setDate(fromDate.getDate() - 90);
+      setSupabaseError(null);
+      try {
+        // Filtros de período
+        let fromDate = null;
+        if (period === 'last30') {
+          fromDate = new Date();
+          fromDate.setDate(fromDate.getDate() - 30);
+        } else if (period === 'last90') {
+          fromDate = new Date();
+          fromDate.setDate(fromDate.getDate() - 90);
+        }
+
+        // Absenteísmo
+        let absenteeismQuery = supabase.from('absenteeism').select('*');
+        if (fromDate) absenteeismQuery = absenteeismQuery.gte('data_falta', fromDate.toISOString().slice(0, 10));
+        if (setor !== 'all') absenteeismQuery = absenteeismQuery.eq('setor', setor);
+        const { data: absenteeismData, error: absenteeismError } = await absenteeismQuery;
+        if (absenteeismError) throw absenteeismError;
+        setAbsenteeism(absenteeismData || []);
+
+        // Turnover
+        let turnoverQuery = supabase.from('turnover').select('*');
+        if (fromDate) turnoverQuery = turnoverQuery.gte('data_evento', fromDate.toISOString().slice(0, 10));
+        if (setor !== 'all') turnoverQuery = turnoverQuery.eq('setor', setor);
+        const { data: turnoverData, error: turnoverError } = await turnoverQuery;
+        if (turnoverError) throw turnoverError;
+        setTurnover(turnoverData || []);
+
+        // Quase Acidentes
+        let nearMissesQuery = supabase.from('near_misses').select('*');
+        if (fromDate) nearMissesQuery = nearMissesQuery.gte('data_evento', fromDate.toISOString().slice(0, 10));
+        if (setor !== 'all') nearMissesQuery = nearMissesQuery.eq('setor', setor);
+        const { data: nearMissesData, error: nearMissesError } = await nearMissesQuery;
+        if (nearMissesError) throw nearMissesError;
+        setNearMisses(nearMissesData || []);
+
+        // Relatos Psicossociais
+        const { data: reports, error: reportsError } = await supabase
+          .from("psychosocial_reports")
+          .select("tipo");
+        if (reportsError) throw reportsError;
+        setPsychosocialReports(reports || []);
+
+        // Treinamentos
+        const { data: trainingsData, error: trainingsError } = await supabase
+          .from("ead_training")
+          .select("id");
+        if (trainingsError) throw trainingsError;
+        setTrainings(trainingsData || []);
+
+      } catch (err: any) {
+        setSupabaseError(err?.message || "Erro ao acessar o banco de dados.");
+        setAbsenteeism([]);
+        setTurnover([]);
+        setNearMisses([]);
+        setPsychosocialReports([]);
+        setTrainings([]);
+      } finally {
+        setLoading(false);
       }
-
-      // Absenteísmo
-      let absenteeismQuery = supabase.from('absenteeism').select('*');
-      if (fromDate) absenteeismQuery = absenteeismQuery.gte('data_falta', fromDate.toISOString().slice(0, 10));
-      if (setor !== 'all') absenteeismQuery = absenteeismQuery.eq('setor', setor);
-      const { data: absenteeismData } = await absenteeismQuery;
-      setAbsenteeism(absenteeismData || []);
-
-      // Turnover
-      let turnoverQuery = supabase.from('turnover').select('*');
-      if (fromDate) turnoverQuery = turnoverQuery.gte('data_evento', fromDate.toISOString().slice(0, 10));
-      if (setor !== 'all') turnoverQuery = turnoverQuery.eq('setor', setor);
-      const { data: turnoverData } = await turnoverQuery;
-      setTurnover(turnoverData || []);
-
-      // Quase Acidentes
-      let nearMissesQuery = supabase.from('near_misses').select('*');
-      if (fromDate) nearMissesQuery = nearMissesQuery.gte('data_evento', fromDate.toISOString().slice(0, 10));
-      if (setor !== 'all') nearMissesQuery = nearMissesQuery.eq('setor', setor);
-      const { data: nearMissesData } = await nearMissesQuery;
-      setNearMisses(nearMissesData || []);
-
-      // Relatos Psicossociais
-      const { data: reports } = await supabase
-        .from("psychosocial_reports")
-        .select("tipo");
-      setPsychosocialReports(reports || []);
-
-      // Treinamentos
-      const { data: trainingsData } = await supabase
-        .from("ead_training")
-        .select("id");
-      setTrainings(trainingsData || []);
-
-      setLoading(false);
     }
     fetchData();
   }, [period, setor]);
@@ -102,8 +119,19 @@ const ESGDashboard: React.FC = () => {
   // Filtros de período e setor
   const setoresUnicos = Array.from(new Set(absenteeism.map(a => a.setor).filter(Boolean)));
 
+
   if (loading) {
     return <div className="text-center py-10">Carregando indicadores ESG/Social...</div>;
+  }
+
+  if (supabaseError) {
+    return (
+      <div className="text-center py-10">
+        <div className="bg-red-100 text-red-700 p-2 mb-4 rounded border border-red-300 inline-block">
+          {supabaseError}
+        </div>
+      </div>
+    );
   }
 
   return (

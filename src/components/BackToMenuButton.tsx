@@ -6,7 +6,7 @@ export function BackToMenuButton() {
   const navigate = useNavigate();
   const location = useLocation();
   // Não renderiza no menu principal
-  if (location.pathname === "/" || location.pathname === "/dashboard" || location.pathname === "/index") return null;
+  if (location.pathname === "/" || location.pathname === "/dashboard") return null;
   return (
     <div className="mb-4">
       <Button variant="outline" onClick={() => navigate("/")}> 

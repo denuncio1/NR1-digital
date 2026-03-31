@@ -14,10 +14,17 @@ const CidCrud = () => {
   const [cidOptions, setCidOptions] = useState<any[]>([]);
   const [cidSelecionado, setCidSelecionado] = useState("");
   const [isOutroCid, setIsOutroCid] = useState(false);
+  const [supabaseError, setSupabaseError] = useState<string | null>(null);
 
   async function load() {
-    const { data } = await supabase.from("cids").select("*").order("codcid");
-    setCids(data || []);
+    setSupabaseError(null);
+    const { data, error } = await supabase.from("cids").select("*").order("codcid");
+    if (error) {
+      setSupabaseError(error.message || "Erro ao acessar o banco de dados.");
+      setCids([]);
+    } else {
+      setCids(data || []);
+    }
   }
   useEffect(() => { load(); }, []);
 
@@ -44,7 +51,12 @@ const CidCrud = () => {
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
-    await supabase.from("cids").insert([form]);
+    setSupabaseError(null);
+    const { error } = await supabase.from("cids").insert([form]);
+    if (error) {
+      setSupabaseError(error.message || "Erro ao adicionar registro.");
+      return;
+    }
     setForm({ ...initial });
     load();
   }
@@ -57,7 +69,12 @@ const CidCrud = () => {
   async function handleUpdate(e: React.FormEvent) {
     e.preventDefault();
     if (editId) {
-      await supabase.from("cids").update(form).eq("id", editId);
+      setSupabaseError(null);
+      const { error } = await supabase.from("cids").update(form).eq("id", editId);
+      if (error) {
+        setSupabaseError(error.message || "Erro ao atualizar registro.");
+        return;
+      }
       setEditId(null);
       setForm({ ...initial });
       load();
@@ -66,7 +83,12 @@ const CidCrud = () => {
 
   async function handleDelete(id: number) {
     if (window.confirm("Excluir CID?")) {
-      await supabase.from("cids").delete().eq("id", id);
+      setSupabaseError(null);
+      const { error } = await supabase.from("cids").delete().eq("id", id);
+      if (error) {
+        setSupabaseError(error.message || "Erro ao excluir registro.");
+        return;
+      }
       load();
     }
   }
@@ -74,6 +96,11 @@ const CidCrud = () => {
   return (
     <div className="max-w-3xl mx-auto mt-8">
       <h2 className="text-lg font-bold mb-4">Cadastro de CID-10</h2>
+      {supabaseError && (
+        <div className="bg-red-100 text-red-700 p-2 mb-4 rounded border border-red-300">
+          {supabaseError}
+        </div>
+      )}
       <form onSubmit={editId ? handleUpdate : handleAdd} className="grid grid-cols-2 gap-2 mb-4">
         <div className="col-span-2">
           <label className="block mb-1">CID-10 (Tabela 17 eSocial)</label>

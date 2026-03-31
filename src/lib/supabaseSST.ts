@@ -1,7 +1,9 @@
+// @ts-ignore
 import { supabase } from "./supabaseClient";
 
 export async function fetchGHEs() {
   const { data, error } = await supabase
+    // @ts-ignore
     .from("ghe")
     .select("*");
   if (error) throw error;
@@ -10,6 +12,7 @@ export async function fetchGHEs() {
 
 export async function insertGHE(ghe) {
   const { data, error } = await supabase
+    // @ts-ignore
     .from("ghe")
     .insert([ghe]);
   if (error) throw error;
@@ -18,6 +21,7 @@ export async function insertGHE(ghe) {
 
 export async function fetchRiscos() {
   const { data, error } = await supabase
+    // @ts-ignore
     .from("risco")
     .select("*, ghe(nome)");
   if (error) throw error;
@@ -26,6 +30,7 @@ export async function fetchRiscos() {
 
 export async function insertRisco(risco) {
   const { data, error } = await supabase
+    // @ts-ignore
     .from("risco")
     .insert([risco]);
   if (error) throw error;
@@ -34,6 +39,7 @@ export async function insertRisco(risco) {
 
 export async function fetchCATs() {
   const { data, error } = await supabase
+    // @ts-ignore
     .from("cat")
     .select("*, funcionario(cpf, funcao)");
   if (error) throw error;
@@ -42,6 +48,7 @@ export async function fetchCATs() {
 
 export async function insertCAT(cat) {
   const { data, error } = await supabase
+    // @ts-ignore
     .from("cat")
     .insert([cat]);
   if (error) throw error;
