@@ -16,6 +16,10 @@ export const supabase = {
 		signInWithPassword: async () => ({ data: { user: { id: 'mock' } }, error: null }),
 		signOut: async () => ({ error: null }),
 		getSession: async () => ({ data: { session: null }, error: null }),
+		onAuthStateChange: (callback) => {
+			// Mock: nunca chama callback, retorna unsub function
+			return { data: { subscription: { unsubscribe: () => {} } }, error: null };
+		},
 		// Adicione outros métodos conforme necessário
 	},
 	// Adicione outros mocks conforme necessário
